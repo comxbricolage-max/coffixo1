@@ -140,19 +140,44 @@ All functionality works without a database:
 - **Sessions:** Simple cookie-based (demo mode)
 - **API Routes:** All return success in demo mode
 
-## 🔮 Future Integration
+## 🔮 MongoDB Integration
 
-When ready to connect MongoDB:
+### Quick Setup
 
-1. Search for `🧪 DEMO MODE` comments in codebase
-2. Search for `TODO:` comments
-3. Replace mock functions in `lib/auth.ts`
-4. Replace mock data in `lib/mock-data.ts`
-5. Update API routes to use real database
-6. Add environment variables
+1. **Create `.env.local` file:**
+```bash
+cp .env.example .env.local
+```
+
+2. **Add your MongoDB connection string:**
+```env
+MONGODB_URI=mongodb+srv://comx2025:YOUR_PASSWORD@caffixo.m1zvqsz.mongodb.net/?appName=caffixo
+```
+
+3. **Replace `YOUR_PASSWORD` with your actual MongoDB Atlas password**
+
+4. **Test the connection:**
+```bash
+npm run dev
+```
+
+The app will automatically connect to MongoDB when `MONGODB_URI` is set.
+
+### Integration Steps
+
+When ready to use real database:
+
+1. Set `MONGODB_URI` in `.env.local`
+2. Search for `🧪 DEMO MODE` comments in codebase
+3. Search for `TODO:` comments
+4. Replace mock functions in `lib/auth.ts`
+5. Replace mock data queries in `lib/mock-data.ts`
+6. Update API routes to use `getDb()` from `lib/db.ts`
 7. Remove demo banner
 
 All integration points are clearly marked with TODO comments.
+
+**Note:** The app works in demo mode without MongoDB. Connection is optional.
 
 ## ✅ Quality Checklist
 
