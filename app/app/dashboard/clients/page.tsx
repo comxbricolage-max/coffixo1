@@ -58,7 +58,7 @@ export default function ClientsPage() {
         />
         <KPIStatCard
           label={t('dashboard.clients.totalRevenue')}
-          value={safeFormatCurrency(mockClients.reduce((sum, c) => sum + c.totalSpent, 0), currency ?? 'MAD')}
+          value={safeFormatCurrency(mockClients.reduce((sum, c) => sum + c.totalSpent, 0), currency ?? 'USD')}
           icon={DollarSign}
           gradient="green"
         />
@@ -106,7 +106,7 @@ export default function ClientsPage() {
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-400">{t('dashboard.clients.totalSpent')}</span>
-                  <span className="font-semibold text-orange-400">{safeFormatCurrency(client.totalSpent, currency ?? 'MAD')}</span>
+                  <span className="font-semibold text-orange-400">{safeFormatCurrency(client.totalSpent, currency ?? 'USD')}</span>
                 </div>
                 {client.lastOrderAt && (
                   <div className="flex items-center justify-between text-sm">
