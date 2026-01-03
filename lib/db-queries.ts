@@ -104,9 +104,9 @@ export async function getOrderById(id: string): Promise<Order | null> {
     }
 
     // Try string ID first, then ObjectId if valid
-    let order = await collection.findOne({ _id: id })
+    let order = await collection.findOne({ _id: id as any })
     if (!order && ObjectId.isValid(id)) {
-      order = await collection.findOne({ _id: new ObjectId(id) })
+      order = await collection.findOne({ _id: new ObjectId(id) as any })
     }
     if (!order) return null
 
@@ -166,10 +166,14 @@ export async function createOrder(orderData: Omit<Order, 'id'>): Promise<Order> 
       throw new Error('Orders collection not available')
     }
 
-    const result = await collection.insertOne({
-      ...orderData,
+    // Convert Order to MongoDB document format (remove 'id', use '_id')
+    const { id, ...orderDoc } = orderData as any
+    const docToInsert = {
+      ...orderDoc,
       createdAt: orderData.createdAt || new Date(),
-    })
+    }
+
+    const result = await collection.insertOne(docToInsert as any)
 
     const created = await collection.findOne({ _id: result.insertedId })
     if (!created) throw new Error('Failed to create order')
@@ -203,8 +207,8 @@ export async function updateOrder(id: string, updates: Partial<Order>): Promise<
 
     // Try both string ID and ObjectId
     const filter = ObjectId.isValid(id) 
-      ? { _id: new ObjectId(id) }
-      : { _id: id }
+      ? { _id: new ObjectId(id) as any }
+      : { _id: id as any }
     
     await collection.updateOne(filter, { $set: updates })
     return await getOrderById(id)
@@ -264,9 +268,9 @@ export async function getProductById(id: string): Promise<Product | null> {
     }
 
     // Try string ID first, then ObjectId if valid
-    let product = await collection.findOne({ _id: id })
+    let product = await collection.findOne({ _id: id as any })
     if (!product && ObjectId.isValid(id)) {
-      product = await collection.findOne({ _id: new ObjectId(id) })
+      product = await collection.findOne({ _id: new ObjectId(id) as any })
     }
     if (!product) return null
 
@@ -435,8 +439,8 @@ export async function updateRawMaterialQuantity(id: string, quantity: number): P
 
     // Try both string ID and ObjectId
     const filter = ObjectId.isValid(id) 
-      ? { _id: new ObjectId(id) }
-      : { _id: id }
+      ? { _id: new ObjectId(id) as any }
+      : { _id: id as any }
     
     await collection.updateOne(filter, { $set: { currentQuantity: quantity } })
     const updated = await collection.findOne(filter)
