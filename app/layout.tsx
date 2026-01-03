@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { ErrorBoundary } from '@/components/ErrorBoundary'
 import SafeRoot from '@/components/SafeRoot'
 import LanguageInitClient from '@/components/LanguageInit'
 
@@ -17,12 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <body className="bg-charcoal-900 text-charcoal-100 min-h-screen antialiased">
-        <ErrorBoundary>
-          <SafeRoot>
-            <LanguageInitClient />
-            {children}
-          </SafeRoot>
-        </ErrorBoundary>
+        <SafeRoot>
+          <LanguageInitClient />
+          {children}
+        </SafeRoot>
       </body>
     </html>
   )
