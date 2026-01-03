@@ -87,114 +87,117 @@ async function seedDatabase() {
     // Seed Categories
     console.log('\n📁 Seeding categories...')
     const categoriesCollection = db.collection('categories')
-    const categoryDocs = mockCategories.map(cat => ({
-      _id: cat.id,
-      ...cat,
-    }))
-    await categoriesCollection.insertMany(categoryDocs)
+    const categoryDocs = mockCategories.map(cat => {
+      const { id, ...rest } = cat
+      return {
+        _id: id,
+        ...rest,
+      }
+    })
+    await categoriesCollection.insertMany(categoryDocs as any)
     console.log(`  ✓ Created ${categoryDocs.length} categories`)
 
     // Seed Products
     console.log('\n🍽️  Seeding products...')
     const productsCollection = db.collection('products')
-    const productDocs = mockProducts.map(prod => ({
-      _id: prod.id,
-      ...prod,
-      createdAt: prod.createdAt || new Date(),
-    }))
-    await productsCollection.insertMany(productDocs)
+    const productDocs = mockProducts.map(prod => {
+      const { id, ...rest } = prod
+      return {
+        _id: id,
+        ...rest,
+        createdAt: prod.createdAt || new Date(),
+      }
+    })
+    await productsCollection.insertMany(productDocs as any)
     console.log(`  ✓ Created ${productDocs.length} products`)
 
     // Seed Tables
     console.log('\n🪑 Seeding tables...')
     const tablesCollection = db.collection('tables')
-    const tableDocs = mockTables.map(table => ({
-      _id: table.id,
-      ...table,
-    }))
-    await tablesCollection.insertMany(tableDocs)
+    const tableDocs = mockTables.map(table => {
+      const { id, ...rest } = table
+      return { _id: id, ...rest }
+    })
+    await tablesCollection.insertMany(tableDocs as any)
     console.log(`  ✓ Created ${tableDocs.length} tables`)
 
     // Seed Staff
     console.log('\n👥 Seeding staff...')
     const staffCollection = db.collection('staff')
-    const staffDocs = mockStaff.map(staff => ({
-      _id: staff.id,
-      ...staff,
-      createdAt: staff.createdAt || new Date(),
-    }))
-    await staffCollection.insertMany(staffDocs)
+    const staffDocs = mockStaff.map(staff => {
+      const { id, ...rest } = staff
+      return { _id: id, ...rest, createdAt: staff.createdAt || new Date() }
+    })
+    await staffCollection.insertMany(staffDocs as any)
     console.log(`  ✓ Created ${staffDocs.length} staff members`)
 
     // Seed Clients
     console.log('\n👤 Seeding clients...')
     const clientsCollection = db.collection('clients')
-    const clientDocs = mockClients.map(client => ({
-      _id: client.id,
-      ...client,
-    }))
-    await clientsCollection.insertMany(clientDocs)
+    const clientDocs = mockClients.map(client => {
+      const { id, ...rest } = client
+      return { _id: id, ...rest }
+    })
+    await clientsCollection.insertMany(clientDocs as any)
     console.log(`  ✓ Created ${clientDocs.length} clients`)
 
     // Seed Suppliers
     console.log('\n🏪 Seeding suppliers...')
     const suppliersCollection = db.collection('suppliers')
-    const supplierDocs = mockSuppliers.map(supplier => ({
-      _id: supplier.id,
-      ...supplier,
-      createdAt: supplier.createdAt || new Date(),
-    }))
-    await suppliersCollection.insertMany(supplierDocs)
+    const supplierDocs = mockSuppliers.map(supplier => {
+      const { id, ...rest } = supplier
+      return { _id: id, ...rest, createdAt: supplier.createdAt || new Date() }
+    })
+    await suppliersCollection.insertMany(supplierDocs as any)
     console.log(`  ✓ Created ${supplierDocs.length} suppliers`)
 
     // Seed Raw Materials
     console.log('\n📦 Seeding raw materials...')
     const rawMaterialsCollection = db.collection('rawMaterials')
-    const rawMaterialDocs = mockRawMaterials.map(rm => ({
-      _id: rm.id,
-      ...rm,
-      createdAt: rm.createdAt || new Date(),
-    }))
-    await rawMaterialsCollection.insertMany(rawMaterialDocs)
+    const rawMaterialDocs = mockRawMaterials.map(rm => {
+      const { id, ...rest } = rm
+      return { _id: id, ...rest, createdAt: rm.createdAt || new Date() }
+    })
+    await rawMaterialsCollection.insertMany(rawMaterialDocs as any)
     console.log(`  ✓ Created ${rawMaterialDocs.length} raw materials`)
 
     // Seed Direct Stock
     console.log('\n📦 Seeding direct stock...')
     const directStockCollection = db.collection('directStock')
-    const directStockDocs = mockDirectStock.map(ds => ({
-      _id: ds.id,
-      ...ds,
-      createdAt: ds.createdAt || new Date(),
-    }))
-    await directStockCollection.insertMany(directStockDocs)
+    const directStockDocs = mockDirectStock.map(ds => {
+      const { id, ...rest } = ds
+      return { _id: id, ...rest, createdAt: ds.createdAt || new Date() }
+    })
+    await directStockCollection.insertMany(directStockDocs as any)
     console.log(`  ✓ Created ${directStockDocs.length} direct stock items`)
 
     // Seed Purchases
     console.log('\n💰 Seeding purchases...')
     const purchasesCollection = db.collection('purchases')
-    const purchaseDocs = mockPurchases.map(purchase => ({
-      _id: purchase.id,
-      ...purchase,
-      purchaseDate: purchase.purchaseDate || new Date(),
-      createdAt: purchase.createdAt || new Date(),
-    }))
-    await purchasesCollection.insertMany(purchaseDocs)
+    const purchaseDocs = mockPurchases.map(purchase => {
+      const { id, ...rest } = purchase
+      return { _id: id, ...rest, purchaseDate: purchase.purchaseDate || new Date(), createdAt: purchase.createdAt || new Date() }
+    })
+    await purchasesCollection.insertMany(purchaseDocs as any)
     console.log(`  ✓ Created ${purchaseDocs.length} purchases`)
 
     // Seed Orders (optional - can be empty initially)
     console.log('\n📋 Seeding orders...')
     const ordersCollection = db.collection('orders')
-    const orderDocs = mockOrders.map(order => ({
-      _id: order.id,
-      ...order,
-      createdAt: order.createdAt || new Date(),
-      acceptedAt: order.acceptedAt,
-      startedAt: order.startedAt,
-      readyAt: order.readyAt,
-      servedAt: order.servedAt,
-      completedAt: order.completedAt,
-    }))
-    await ordersCollection.insertMany(orderDocs)
+    const orderDocs = mockOrders.map(order => {
+      const { id, ...rest } = order
+      return {
+        _id: id,
+        ...rest,
+        createdAt: order.createdAt || new Date(),
+        acceptedAt: order.acceptedAt,
+        startedAt: order.startedAt,
+        readyAt: order.readyAt,
+        servedAt: order.servedAt,
+        completedAt: order.completedAt,
+      }
+    })
+    await ordersCollection.insertMany(orderDocs as any)
     console.log(`  ✓ Created ${orderDocs.length} orders`)
 
     // Create indexes
