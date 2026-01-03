@@ -296,12 +296,10 @@
 
 ### ⚠️ MINOR ISSUES (Non-Blocking)
 
-1. **Hardcoded 'MAD' Fallback in Clients Page**
+1. ~~**Hardcoded 'MAD' Fallback in Clients Page**~~ ✅ **FIXED**
    - **Location**: `app/app/dashboard/clients/page.tsx` lines 61, 109
-   - **Code**: `currency ?? 'MAD'`
-   - **Should be**: `currency ?? 'USD'`
-   - **Impact**: Low - Only affects Clients page
-   - **Fix**: Simple search/replace
+   - **Fix Applied**: Changed `currency ?? 'MAD'` to `currency ?? 'USD'`
+   - **Status**: ✅ Fixed and committed
 
 2. **RTL dir Attribute**
    - **Location**: `app/layout.tsx` line 18
@@ -309,10 +307,10 @@
    - **Impact**: Low - RTL works after component mount, slight SSR mismatch
    - **Fix**: Make `dir` dynamic for SSR (optional improvement)
 
-3. **Missing `tsx` Dependency**
+3. ~~**Missing `tsx` Dependency**~~ ✅ **FIXED**
    - **Issue**: `npm run seed` requires `tsx` but not in devDependencies
-   - **Impact**: Low - Works if installed globally
-   - **Fix**: Add `"tsx": "^4.x"` to devDependencies
+   - **Fix Applied**: Added `"tsx": "^4.7.0"` to devDependencies
+   - **Status**: ✅ Fixed and committed
 
 ### ❌ BLOCKING ISSUES
 
