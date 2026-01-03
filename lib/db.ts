@@ -13,15 +13,3 @@ export async function getDb() {
   return client.db(dbName)
 }
 
-/**
- * Get users collection
- * Returns null if MongoDB is not connected (demo mode)
- */
-export async function getUsersCollection() {
-  const db = await getDb()
-  if (!db) {
-    return null
-  }
-  return db.collection('users')
-}
-

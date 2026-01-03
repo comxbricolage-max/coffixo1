@@ -211,7 +211,33 @@ npm run dev      # Start development server
 npm run build    # Build for production
 npm start        # Start production server
 npm run lint     # Run ESLint
+npm run seed     # Seed MongoDB with initial data
 ```
+
+## 🗄️ MongoDB Integration
+
+The application now supports MongoDB with automatic fallback to mock data.
+
+### Quick Setup
+
+1. **Create `.env.local`:**
+```env
+MONGODB_URI=mongodb+srv://comx2025:YOUR_PASSWORD@caffixo.m1zvqsz.mongodb.net/?appName=caffixo
+```
+
+2. **Seed the database:**
+```bash
+npm run seed
+```
+
+3. **Start the app:**
+```bash
+npm run dev
+```
+
+The app automatically uses MongoDB if connected, otherwise falls back to mock data.
+
+See [MONGODB_INTEGRATION.md](./MONGODB_INTEGRATION.md) for detailed documentation.
 
 ## 🚀 Deployment
 

@@ -1,8 +1,10 @@
-// 🧪 DEMO MODE – NO DATABASE
-// TODO: Replace with real session validation when database is connected
+/**
+ * Session validation API route
+ * Uses MongoDB if available, falls back to demo mode
+ */
 
 import { NextResponse } from 'next/server'
-import { getCurrentUser } from '@/lib/auth'
+import { getCurrentUser, isDbAvailable } from '@/lib/auth'
 
 export async function GET() {
   try {
@@ -31,19 +33,30 @@ export async function GET() {
       { status: 200 }
     )
   } catch (error) {
-    // Even on error, return demo user to prevent UI failures
-    // TODO: Add proper error logging when MongoDB is connected
+    console.error('Session error:', error)
+    
+    // In demo mode, return demo user to prevent UI failures
+    if (!isDbAvailable()) {
+      return NextResponse.json(
+        {
+          success: true,
+          user: {
+            id: 'demo-owner',
+            email: 'demo@caffixo.com',
+            name: 'Demo Restaurant',
+            role: 'owner',
+          },
+        },
+        { status: 200 }
+      )
+    }
+    
     return NextResponse.json(
       {
-        success: true,
-        user: {
-          id: 'demo-owner',
-          email: 'demo@caffixo.com',
-          name: 'Demo Restaurant',
-          role: 'owner',
-        },
+        success: false,
+        user: null,
       },
-      { status: 200 }
+      { status: 401 }
     )
   }
 }
