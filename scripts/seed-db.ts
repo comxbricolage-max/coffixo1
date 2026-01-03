@@ -32,6 +32,9 @@ if (!MONGODB_URI) {
 }
 
 async function seedDatabase() {
+  if (!MONGODB_URI) {
+    throw new Error('MONGODB_URI is required')
+  }
   const client = new MongoClient(MONGODB_URI)
 
   try {
